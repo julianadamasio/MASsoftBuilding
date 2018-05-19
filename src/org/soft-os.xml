@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
+
+<organisational-specification 
+    id="soft_contruction"
+    os-version="0.8"
+  
+    xmlns='http://moise.sourceforge.net/os'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd' >
+    
+<structural-specification>
+
+<role-definitions>
+ <role id="equipeConstrucao" />
+   <role id="project_owner" >      <extends role="equipeConstrucao"/>  </role>
+   <role id="analista" >           <extends role="equipeConstrucao"/>  </role>
+   <role id="desenvolvedor" >      <extends role="equipeConstrucao"/>  </role>
+   <role id="analistaTeste" >      <extends role="equipeConstrucao"/>  </role>
+   <role id="testador" >          <extends role="equipeConstrucao"/>  </role>
+</role-definitions>
+
+<group-specification id="construcao">
+ <roles>
+	  <role id="project_owner"        min="1" max="1"/>
+	  <role id="analista"             min="1" max="1"/>
+	  <role id="desenvolvedor"        min="1" max="1"/>
+	  <role id="analistaTeste"        min="1" max="1"/>
+	  <role id="testador"             min="1" max="1"/>
+ </roles>
+ 
+ <links>
+	   <link from="project_owner"      type="authority"     to="equipeConstrucao" scope="intra-group" />
+	   <link from="equipeConstrucao" type="communication" to="equipeConstrucao"      scope="intra-group" />
+ </links>
+
+ <formation-constraints>
+    <compatibility from="equipeConstrucao" to="equipeConstrucao"  scope="intra-group" />
+ </formation-constraints>
+ 
+</group-specification>
+</structural-specification>
+
+<functional-specification>
+	 <scheme id="build_soft_sch">
+	   <goal id="soft_built">
+	     <plan operator="sequence">
+	       <goal id="t1cs"    ttf="20 minutes" ds="analisar especificacao"/>
+	       <goal id="t2cs" ds="desenvolver" >
+	          <plan operator="parallel">
+	             <goal id="t21cs"          ttf="30 minutes" ds="codificar" />
+	             <goal id="t22cs"          ttf="10 minutes" ds="comite do codigo"  />
+	          </plan>
+	       </goal>
+	       <goal id="t3cs"  ttf="30 minutes"  ds="enviar para teste" />
+	     </plan>
+	   </goal>
+	
+	 
+	   <mission id="m1cs" min="1" max="1">
+	     <goal id="t1cs" />
+	   </mission>
+	   <mission id="m2cs" min="1" max="1">
+	      <goal id="t2cs"/>
+	      <goal id="t21cs"/>
+	      <goal id="t22cs"/>
+	      <goal id="t3cs"/>
+	    </mission>
+	 </scheme>
+	 
+      <scheme id="test_soft_sch" >
+            <goal id="testar_software" ttf="5 seconds">
+                <plan operator="sequence" >
+                	<goal id="t1ts" ds="testar" > 
+                		<plan operator="parallel" >
+                			<goal id="t11ts" ttf="30 minutes" ds="preparar ambiente" /> 
+                	        <goal id="t12ts" ttf="30 minutes" ds="fazer plano de teste" /> 
+                		 </plan>
+                	</goal>	
+                	<goal id="t2ts" ttf="40 minutes" ds="executar plano de teste" /> 
+                	<goal id="t3ts" ttf="10 minutes" ds="liberar software" /> 
+                </plan>
+            </goal>
+            
+      
+           <mission id="m1ts" min="1" max="1">
+           		<goal id="t1ts"/>
+                <goal id="t11ts"/>
+                <goal id="t12ts"/>
+            </mission>
+            
+             <mission id="m2ts" min="1" max="1">
+                <goal id="t2ts"/>
+                 <goal id="t3ts"/>
+            </mission>
+        </scheme>
+ 
+</functional-specification>
+
+<normative-specification>
+<norm id="n1"     type="obligation"    role="analista"             mission="m1cs" />
+<norm id="n2"     type="obligation"    role="desenvolvedor"        mission="m2cs" />
+<norm id="n3"     type="obligation"    role="analistaTeste"        mission="m1ts" />
+<norm id="n4"     type="obligation"    role="testador"             mission="m2ts" />
+
+
+</normative-specification>
+
+</organisational-specification>
+

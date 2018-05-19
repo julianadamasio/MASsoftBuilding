@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
+
+<organisational-specification 
+
+    id="prodSoft"
+    os-version="0.8"
+  
+    xmlns='http://moise.sourceforge.net/os'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd' >
+    
+    <structural-specification>
+
+        <role-definitions>
+            <role id="equipeDeHomolog" /> 
+            <role id="gerenteDeInfra"> <extends role="equipeDeHomolog"/> </role>
+            <role id="desenvDeOperacao"> <extends role="equipeDeHomolog"/> </role>
+        </role-definitions>
+
+        <group-specification id="producao" >
+            <roles>
+                <role id="gerenteDeInfra" min="1" max="1" />
+                <role id="desenvDeOperacao" min="1" max="1" />
+            </roles>
+            <links>
+                <link from="desenvDeOperacao" type="authority"  to="gerenteDeInfra" scope="intra-group" />
+                <link from="gerenteDeInfra" type="authority"     to="desenvDeOperacao" scope="intra-group" />
+                <link from="gerenteDeInfra" type="communication" to="desenvDeOperacao" scope="intra-group" />
+                
+            </links>
+
+            <formation-constraints>
+                <compatibility from="gerenteDeInfra" to="desenvDeOperacao" type="compatibility" scope="intra-group" bi-dir="true"/>
+            </formation-constraints>
+        </group-specification>
+    </structural-specification>
+
+
+    <functional-specification>
+    
+    <scheme id="tarefa1Prod" >
+            <goal id="homologar" ttf="5 seconds">
+                <plan operator="sequence" >
+                	<goal id="t1H" ds="criar ambiente" />
+					<goal id="t2H" ds="receber pacote" /> 
+					<goal id="t3H" ds="testar" />
+					<goal id="t4H" ds="liberar software" />
+                </plan>
+            </goal>
+
+            <mission id="m1H" min="1" max="1">
+                <goal id="t1H"/>
+                <goal id="t2H"/>
+                <goal id="t3H"/>
+                <goal id="t4H"/>
+            </mission>
+            
+        </scheme>
+        
+         <scheme id="tarefa2Prod" >
+            <goal id="colocarEmProd" ttf="5 seconds">
+                <plan operator="sequence" >
+					<goal id="t1CP" ds="Executar plano de liberação de software" /> 
+					<goal id="t2CP" ds="Liberar Software" />
+                </plan>
+            </goal>
+    
+
+            <mission id="m2CP" min="1" max="1">
+                <goal id="t1CP"/>
+                <goal id="t2CP"/>
+            </mission>
+            
+        </scheme>
+       
+        
+    </functional-specification>
+
+    <normative-specification>
+        <norm id = "n1Prod" role="desenvDeOperacao" type="obligation" mission="m1H" time-constraint="1 day" />
+        <norm id = "n2Prod" role="gerenteDeInfra" type="obligation" mission="m2CP" time-constraint="1 day" />
+    </normative-specification>
+    
+</organisational-specification>
+

@@ -1,0 +1,89 @@
+
+
+mas soft_building {
+
+	agent giacomo{
+		instances: 1
+		join: desenv
+		focus:auction_for_AnalisarEspecifiq, auction_for_Desenvolver, auction_for_PlanoTeste, auction_for_Testar
+   }    
+   
+   agent analistaA{
+   	  instances: 10
+   	  join: desenv	
+   	  focus: documentacao
+   	  beliefs: role(analista)
+   }
+
+   agent desenv {
+      instances: 10
+   	  join: desenv
+   	  focus:softConstruction, documentacao
+      beliefs: role(desenvolvedor)
+   }
+   
+   agent analistaTesteA{
+   	 instances: 10
+   	 join: desenv
+   	 focus: softConstruction, documentacao, planoTeste
+   	 beliefs: role(analistaTeste)
+   	 
+   }
+   
+   agent testadorA{
+   	  instances: 10
+   	  join: desenv
+   	  focus: planoTeste
+   	  beliefs: role(testador)
+   }
+   
+   agent gerInfra{
+   	  instances: 1
+   	  join: desenv
+   	  focus: ambienteHomolog, planoTeste
+   	  
+   }
+   
+    agent devop{
+   	  instances: 1
+   	  join: desenv
+   	  focus: ambienteHomolog,  planoTeste
+   }
+   
+   workspace desenv{
+     	//artefatos auction
+            artifact auction_for_AnalisarEspecifiq: tools.AuctionArt("auction_for_AnalisarEspecifiq", 2000) 
+   			artifact auction_for_Desenvolver: tools.AuctionArt("auction_for_Desenvolver", 1000) 
+   			artifact auction_for_PlanoTeste: tools.AuctionArt("auction_for_PlanoTeste", 1000) 
+   			artifact auction_for_Testar: tools.AuctionArt("auction_for_Testar", 1000) 
+   		//artefatos construcao	
+   			artifact softConstruction: tools.ComputadorArt()
+   			artifact documentacao: tools.DocumentacaoArt()
+   			artifact planoTeste: tools.PlanoTesteArt()
+   		//artefatos producao
+   			artifact ambienteHomolog: tools.AmbientHomologArt()
+    }
+   
+      organisation odesenv: soft-os.xml {
+        group const_group: construcao {
+		owner :    giacomo
+		players:   giacomo project_owner
+                     debug    
+       }
+       scheme s1desenv: build_soft_sch 
+       scheme s2desenv: test_soft_sch
+ 
+   }
+   
+    organisation oprod: prod-os.xml {
+        group prod_group: producao {
+            players:  devop     desenvDeOperacao
+            		  gerInfra  gerenteDeInfra
+           debug    
+        }
+        scheme s1prod: tarefa1Prod	
+        scheme s2prod: tarefa2Prod     
+    }
+    
+   asl-path:  src/agt, src/agt/inc
+}

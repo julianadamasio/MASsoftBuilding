@@ -1,0 +1,37 @@
+[JaCaMoLauncher] Workspace desenv created.
+[JaCaMoLauncher] artifact auction_for_Desenvolver: tools.AuctionArt("auction_for_Desenvolver",1000) at desenv created.
+[JaCaMoLauncher] artifact softConstruction: tools.ComputadorArt() at desenv created.
+[JaCaMoLauncher] artifact auction_for_AnalisarEspecifiq: tools.AuctionArt("auction_for_AnalisarEspecifiq",2000) at desenv created.
+[JaCaMoLauncher] artifact auction_for_PlanoTeste: tools.AuctionArt("auction_for_PlanoTeste",1000) at desenv created.
+[JaCaMoLauncher] artifact documentacao: tools.DocumentacaoArt() at desenv created.
+[JaCaMoLauncher] artifact auction_for_Testar: tools.AuctionArt("auction_for_Testar",1000) at desenv created.
+[JaCaMoLauncher] Workspace odesenv created.
+[JaCaMoLauncher] scheme created: s1desenv: build_soft_sch using artifact ora4mas.nopl.SchemeBoard
+[JaCaMoLauncher] scheme created: s2desenv: test_soft_sch using artifact ora4mas.nopl.SchemeBoard
+[JaCaMoLauncher] group created: const_group: construcao using artifact ora4mas.nopl.GroupBoard
+[JaCaMoLauncher] Workspace oprod created.
+[JaCaMoLauncher] scheme created: s1prod: tarefa1Prod using artifact ora4mas.nopl.SchemeBoard
+[JaCaMoLauncher] scheme created: s2prod: tarefa2Prod using artifact ora4mas.nopl.SchemeBoard
+[JaCaMoLauncher] group created: prod_group: producao using artifact ora4mas.nopl.GroupBoard
+[desenv2] I am obliged to commit to m2cs on s1desenv... doing so
+[analistaA1] I am obliged to commit to m1cs on s1desenv... doing so
+[analistaA1] analisando especific...
+[desenv2] ligando pc
+[desenv2] true
+[desenv2] desenv abrindo IDE
+[desenv2] true
+[desenv2] codificando...
+[desenv2] comitando codigo...
+[desenv2] comitado
+[desenv2] desenvolvido...
+[desenv2] enviando para o teste...
+[giacomo] desenvolvedor terminou
+[analistaTesteA10] I am obliged to commit to m1ts on s2desenv... doing so
+[testadorA6] I am obliged to commit to m2ts on s2desenv... doing so
+[analistaTesteA10] No fail event was generated for +!t11ts[scheme(s2desenv),source(self)]
+[analistaTesteA10] 
+intention 151: 
+    +obligation(analistaTesteA10,enabled(s2desenv,t11ts),done(s2desenv,t11ts,analistaTesteA10),1512684885601)[artifact_id(cobj_10),percept_type(obs_prop),source(percept),artifact_name(cobj_10,s2desenv),norm(ngoal,[["A",analistaTesteA10],["S",s2desenv],["D","1969-11-3 21:30:0"],["G",t11ts],["M",m1ts],["What",done(s2desenv,t11ts,analistaTesteA10)]]),workspace(cobj_10,odesenv,cobj_5)] <- ... !Goal[scheme(Scheme)]; goalAchieved(Goal)[artifact_id(ArtId)] / {Goal=t11ts, Scheme=s2desenv, Ag=analistaTesteA10, Deadline=1512684885601, ArtId=cobj_10, Norm=enabled(s2desenv,t11ts), What=done(s2desenv,t11ts,analistaTesteA10)}
+
+[analistaTesteA10] Found a goal for which there is no applicable plan:+!t11ts[scheme(s2desenv),source(self)]
+[analistaTesteA10] fazendo plano de teste...
